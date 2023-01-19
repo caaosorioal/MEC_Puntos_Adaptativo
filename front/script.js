@@ -4,7 +4,7 @@ $("#myCanvas").click(function(e){
 
 
 function getMousePosition(e){
-    var rect = myCanvachangeColorPointss.getBoundingClientRect();
+    var rect = myCanvachangeColorPoints.getBoundingClientRect();
     var x = e.clientX - rect.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = e.clientY - rect.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
     
@@ -13,7 +13,7 @@ function getMousePosition(e){
 }
 
 function drawCoordinates(x,y){
-    var pointSize = 10; // Change according to the size of the point.
+    var pointSize = 5; // Change according to the size of the point.
     var ctx = document.getElementById("myCanvas").getContext("2d");
 
     ctx.fillStyle = "#ff2626"; // Red color
