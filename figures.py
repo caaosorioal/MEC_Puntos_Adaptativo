@@ -37,9 +37,9 @@ class Canvas:
         """
         random_angle = np.random.uniform(0, 2 * np.pi)
         rotation_matrix = np.array([[np.cos(random_angle), -np.sin(random_angle)], [np.sin(random_angle), np.cos(random_angle)]])
-        rotated_points = [np.matmul(rotation_matrix, np.array(point)) for point in points]
+        rotated_points = [tuple(np.matmul(rotation_matrix, np.array(point))) for point in points]
 
-        return rotated_points
+        return tuple(rotated_points)
 
     def plot_canvas(self):
         """ 
@@ -125,7 +125,7 @@ class Square(Canvas):
         current_point = points[0]
         for i in range(1, 4):
             current_point = current_point + self.len_side * directions[i]  
-            points.append(current_point)
+            points.append(tuple(current_point))
 
         # Check if the square is inside the canvas
         if self.rotate:
