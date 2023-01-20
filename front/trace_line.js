@@ -4,41 +4,49 @@ var figures = [
 ];
 
 var n_clicks = 0;
+var initial_click = null;
+
 var click_x = 0;
 var click_y = 0;
+var winning_lines = [];
 
 $("#canvasLines").click(function(e){
     click_x = e.pageX - this.offsetLeft;
     click_y = e.pageY - this.offsetTop;
-    n_clicks += 1; 
-    for (var i = 0; i < figures.length; i++) {
-        for (var j = 0; j < figures[i].length; j++) {
-            if ((euclidean_distance(click_x, click_y, figures[i][j].x, figures[i][j].y) >= 5) ) {
-                var main_canvas = document.getElementById("canvasLines");
-                var ctx = main_canvas.getContext("2d");
-                ctx.clearRect(0,0, main_canvas.width, main_canvas.height);
-            } else {}
-        }
-    }
 
+    if (is_solution_point(click_x, click_y)){
+        n_clicks += 1; 
+        nearest_point = nearest_solution_point(click_x, click_y);
+        console.log("You clicked on a point that is part of a figure");
+        
+        if (n_clicks % 2 == 0){
+            winning_lines.push({x1: initial_click.x, y1: initial_click.y, x2: nearest_point.x, y2: nearest_point.y});
+            draw_winning_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, "green");
+            console.log(winning_lines);
+            initial_click = null;
+            click_x = 0;
+            click_y = 0;
+            clear_line();
+        } else {
+            initial_click = {x: nearest_point.x, y: nearest_point.y};
+        }
+    } else {
+        clear_line();
+    }
 });
 
 $("#canvasLines").mousemove(function(e){
     cursor_x = e.pageX - this.offsetLeft;
     cursor_y = e.pageY - this.offsetTop;
 
-    for (var i = 0; i < figures.length; i++) {
-        for (var j = 0; j < figures[i].length; j++) {
-            if ((euclidean_distance(click_x, click_y, figures[i][j].x, figures[i][j].y) < 5) && (n_clicks % 2 == 0) ) {
-                draw_line(figures[i][j].x, figures[i][j].y, cursor_x, cursor_y, "red");
-                draw_point(figures[i][j].x, figures[i][j].y, "red");
-            } else {}
-        }
+    if (is_solution_point(click_x, click_y)){
+        nearest_point = nearest_solution_point(click_x, click_y);
+        draw_line(nearest_point.x, nearest_point.y, cursor_x, cursor_y, "red");
+        draw_point(nearest_point.x, nearest_point.y, "red");
     }
-
-    
 }).mouseover();
 
+console.log(winning_lines);
 
 
 
