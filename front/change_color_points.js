@@ -1,6 +1,5 @@
 var figures = [
     [{x:400, y:100}, {x:300, y:100}, {x:300, y:200}, {x:400, y:200}],
-    [{x:200, y:100}, {x:100, y:100}, {x:100, y:200}, {x:200, y:200}]
 ];
 
 function euclidean_distance(x1, y1, x2, y2) {
@@ -20,4 +19,5 @@ $("#canvasLines").mousemove(function(e){
             }
         }
     }
+
 }).mouseover();
