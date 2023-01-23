@@ -13,11 +13,12 @@ $("#canvasLines").mousemove(function(e){
     for (var i = 0; i < figures.length; i++) {
         for (var j = 0; j < figures[i].length; j++) {
             if (euclidean_distance(mouse_x, mouse_y, figures[i][j].x, figures[i][j].y) < 5) {
-                draw_point(figures[i][j].x, figures[i][j].y, "red")
+                draw_point(figures[i][j].x, figures[i][j].y, "black", 7)
             } else {
+                // The first point is to erase the previous point.
+                draw_point(figures[i][j].x, figures[i][j].y, "white", 8)
                 draw_point(figures[i][j].x, figures[i][j].y, "black")
             }
         }
     }
-
 }).mouseover();

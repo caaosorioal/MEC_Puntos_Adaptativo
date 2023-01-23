@@ -1,9 +1,9 @@
 import pygame
 import pygame.freetype
-from game import Game
+from mec_points.game import Game
 import time
-from create_game import create_random_setup
-from utils import *
+from mec_points.create_game import create_random_setup
+from mec_points.utils import *
 
 # Initialize pygame
 pygame.init()

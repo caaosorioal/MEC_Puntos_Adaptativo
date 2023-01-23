@@ -1,4 +1,4 @@
-from game import Game
+from mec_points.game import Game
 
 # Test case for canvas
 (x_dim_canvas, y_dim_canvas) = (15, 10)
@@ -12,3 +12,4 @@ figures = [
 
 canvas, figures = Game(x_dim_canvas, y_dim_canvas, figures).create_game()
 canvas.plot_points(figures)
+

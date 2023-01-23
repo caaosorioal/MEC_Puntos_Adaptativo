@@ -1,4 +1,4 @@
-from figures import *
+from mec_points.figures import *
 
 class Game:
     def __init__(self, x_dim_canvas, y_dim_canvas, figures_setup : Tuple[str, float, bool]):
