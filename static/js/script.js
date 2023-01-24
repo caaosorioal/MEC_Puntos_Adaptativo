@@ -2,7 +2,6 @@ $("#myCanvas").click(function(e){
     getMousePosition(e); 
 });
 
-
 function getMousePosition(e){
     var rect = myCanvachangeColorPoints.getBoundingClientRect();
     var x = e.clientX - rect.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document

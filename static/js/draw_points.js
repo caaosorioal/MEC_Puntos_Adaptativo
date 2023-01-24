@@ -1,6 +1,3 @@
-var figures = [
-    [{x:400, y:100}, {x:300, y:100}, {x:300, y:200}, {x:400, y:200}],
-];
 var ctx = document.getElementById("canvasPoints").getContext("2d");
 
 // Function to draw the points inside the figure array.

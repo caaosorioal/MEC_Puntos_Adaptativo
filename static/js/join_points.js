@@ -1,13 +1,3 @@
-var figures = [
-    [{x:400, y:100}, {x:300, y:100}, {x:300, y:200}, {x:400, y:200}],
-];
-var winning_lines = [
-    [{x:400, y:100}, {x:300, y:100}],
-    [{x:300, y:100}, {x:300, y:200}],
-    [{x:300, y:200}, {x:400, y:200}],
-    [{x:400, y:200}, {x:400, y:100}]
-];
-
 // Initial setup to follow up the events
 var id_clicks = 0;
 var initial_click = null;

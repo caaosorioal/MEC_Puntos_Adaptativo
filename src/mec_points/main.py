@@ -1,4 +1,4 @@
-from mec_points.game import Game
+from src.mec_points.game import Game
 
 # Test case for canvas
 (x_dim_canvas, y_dim_canvas) = (15, 10)
