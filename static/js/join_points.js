@@ -15,6 +15,10 @@ var click_y = 0;
 $("#canvasLines").click(function(e){
     click_x = e.pageX - this.offsetLeft;
     click_y = e.pageY - this.offsetTop;
+
+    // Change to the original background color
+    back_to_normal_background();
+
     // Save the number of clicks
     n_clicks += 1;
 
@@ -22,7 +26,6 @@ $("#canvasLines").click(function(e){
     if (is_solution_point(click_x, click_y)){
         id_clicks += 1; 
         nearest_point = nearest_solution_point(click_x, click_y);
-        console.log("You clicked on a point that is part of a figure");
         
         // If the click is on a point of a figure, draw a line from the previous point to the new point
         if (id_clicks % 2 == 0){
@@ -31,9 +34,17 @@ $("#canvasLines").click(function(e){
                 draw_joining_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'green');
                 clear_temp_line(); 
                 current_winning_lines.push([initial_click, nearest_point]);
+                
+                // Show the result to the user
+                highlight_result("correct_lines")
+                show_data("correct_lines", n_success);
             } else {
                 draw_temp_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'red');
                 n_fails += 1;
+
+                // Show the result to the user
+                highlight_result("incorrect_lines")
+                show_data("incorrect_lines", n_fails);
             }
             initial_click = null;
             click_x = 0;
@@ -46,9 +57,6 @@ $("#canvasLines").click(function(e){
         initial_click = null;
         clear_temp_line();
     }
-    console.log("n_clicks: " + n_clicks);
-    console.log("n_success: " + n_success);
-    console.log("n_fails: " + n_fails);
 });
 
 $("#canvasLines").mousemove(function(e){
