@@ -1,6 +1,7 @@
 var names_events = {
     "incorrect_lines": ["Incorrect lines", "#cc0000"],
     "correct_lines" : ["Correct lines",  "#7CFC00"],
+    "correct_figures" : ["Finished figures", "#00cc00"],
 };
 
 function show_data(id_text, data) {

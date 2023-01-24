@@ -16,7 +16,6 @@ function check_if_line_belongs_to_solution(point_1, point_2, list){
     return false
 };
 
-
 function check_if_line_belongs_to_current_correct_lines(point_1, point_2, list){
     for (var i = 0; i < list.length; i++) {
         if (point_1.x == list[i][0].x && point_1.y == list[i][0].y 

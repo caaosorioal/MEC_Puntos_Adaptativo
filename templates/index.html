@@ -63,7 +63,8 @@
             </div>
 
             <div class="textHolder">
-                <h1 data-text = "Dificulty of this problem is {{ difficulty }}"> </h1>
+                <h1 data-text = "Find the figures hidden in the points"> </h1>
+                <p class="text_p" id="correct_figures"> Correct figures: 0</p>
                 <p class="text_p" id="correct_lines"> Correct lines: 0</p>
                 <p class="text_p" id="incorrect_lines">  Incorrect lines: 0</p>
 
@@ -71,8 +72,8 @@
                     <button class = "button-89" role="button" id="new_game">
                         I want another level
                     </button>
-                    <button class = "button-89" role="button" id="finish_game">
-                        I don't want to play more   
+                    <button class = "button-89" role="button" id="get_hint">
+                        I need a hint!
                     </button>
                 </div>
             </div>
@@ -82,13 +83,14 @@
         <!-- Add the script.js file-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="../static/js/draw_points.js"></script>
-        <script src="../static/js/new_game.js"></script>
+        <script src="../static/js/buttons_actions.js"></script>
         <script src="../static/js/show_results.js"></script>
         <script src="../static/js/change_color_points.js"></script>
         <script src="../static/js/join_points.js"></script>
         <script src="../static/js/draw_line.js"></script>
         <script src="../static/js/check_point.js"></script>
         <script src="../static/js/check_line.js"></script>
+        <script src="../static/js/check_if_some_figure_is_finished.js"></script>
     </body>
 </html>
 

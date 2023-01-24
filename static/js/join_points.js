@@ -1,3 +1,6 @@
+// Start to measure the time
+var start_time = new Date().getTime();
+
 // Initial setup to follow up the events
 var id_clicks = 0;
 var initial_click = null;
@@ -26,7 +29,7 @@ $("#canvasLines").click(function(e){
     if (is_solution_point(click_x, click_y)){
         id_clicks += 1; 
         nearest_point = nearest_solution_point(click_x, click_y);
-        
+
         // If the click is on a point of a figure, draw a line from the previous point to the new point
         if (id_clicks % 2 == 0){
             if ((check_if_line_belongs_to_solution(initial_click, nearest_point, winning_lines)) && (!check_if_line_belongs_to_current_correct_lines(nearest_point, initial_click, current_winning_lines))){
@@ -38,6 +41,16 @@ $("#canvasLines").click(function(e){
                 // Show the result to the user
                 highlight_result("correct_lines")
                 show_data("correct_lines", n_success);
+
+                // Check if some figure is finished
+                var finished_figures = check_if_figure_is_finished();
+                show_data("correct_figures", finished_figures.length);
+
+                // Check if the game is finished
+                if (finished_figures.length == winning_lines.length){
+                    alert("Congratulations! You have finished the game in " + n_clicks + " clicks and you spent " + (new Date().getTime() - start_time)/1000 + " seconds.")
+                };
+                
             } else {
                 draw_temp_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'red');
                 n_fails += 1;

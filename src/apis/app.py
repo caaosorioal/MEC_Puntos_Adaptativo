@@ -16,10 +16,17 @@ templates = Jinja2Templates(directory="templates")
 def render_game(request: Request):
     canvas_x_size, canvas_y_size = canvas_size()
 
-    n_figures = 2
+    n_figures = 1
     different_lens = True
+    different_rotation = True
 
-    game_setup, difficulty = create_random_setup(canvas_x_size, canvas_y_size, number_figures=n_figures, different_lens=different_lens)
+    game_setup, difficulty = create_random_setup(
+                                                canvas_x_size, 
+                                                canvas_y_size, 
+                                                number_figures=n_figures, 
+                                                different_lens=different_lens,
+                                                different_rotation=different_rotation
+    )
     _, figures, solutions = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
     
     response_data = {

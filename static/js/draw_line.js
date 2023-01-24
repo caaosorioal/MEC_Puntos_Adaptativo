@@ -3,6 +3,7 @@
 function clear_temp_line(){
     var main_canvas = document.getElementById("canvasLines");
     var ctx = main_canvas.getContext("2d");
+
     ctx.clearRect(0,0, main_canvas.width, main_canvas.height);
 };
 

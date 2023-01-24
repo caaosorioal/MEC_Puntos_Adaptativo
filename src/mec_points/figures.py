@@ -39,7 +39,7 @@ class Canvas:
         rotation_matrix = np.array([[np.cos(random_angle), -np.sin(random_angle)], [np.sin(random_angle), np.cos(random_angle)]])
         rotated_points = [tuple(np.matmul(rotation_matrix, np.array(point))) for point in points]
 
-        return tuple(rotated_points)
+        return rotated_points
 
     def plot_canvas(self):
         """ 
@@ -163,7 +163,11 @@ class Triangle(Canvas):
         square = Square(self.canvas_x_dim, self.canvas_y_dim, self.len_side, self.rotate)
         points = square.create_figure()
 
-        # Delete one corner
-        points.pop(2)
+        if points is None:
+            return self.create_figure()
+        else:
+            print(points)
+            # Delete one corner
+            points.pop(2)
 
-        return points
+            return points
