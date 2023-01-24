@@ -16,13 +16,13 @@ templates = Jinja2Templates(directory="templates")
 def render_game(request: Request):
     canvas_x_size, canvas_y_size = canvas_size()
 
-    n_figures = 1
+    n_figures = 2
     different_lens = True
 
     game_setup, difficulty = create_random_setup(canvas_x_size, canvas_y_size, number_figures=n_figures, different_lens=different_lens)
     _, figures, solutions = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
     
-    response = {
+    response_data = {
         "request": request, 
         "x_size" : canvas_x_size,
         "y_size" : canvas_y_size, 
@@ -31,9 +31,14 @@ def render_game(request: Request):
         "difficulty": difficulty,
     }
 
-    return templates.TemplateResponse("index.html", response)
+    return templates.TemplateResponse("index.html", response_data)
 
 if __name__ == "__main__":
     import uvicorn
     data = get_config_data()
-    uvicorn.run("src.apis.app:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+                "src.apis.app:app", 
+                host="0.0.0.0", 
+                port=data['port'], 
+                reload=True
+    )

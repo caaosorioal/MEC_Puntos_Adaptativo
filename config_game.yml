@@ -1,3 +1,4 @@
+port: 8000
 canvas_size:
-  - x_size : 900
-  - y_size : 800
+  - x_size : 650
+  - y_size : 650

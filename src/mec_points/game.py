@@ -36,10 +36,13 @@ class Game:
          
         solutions = []
         for figure in figures:
+            solutions_figure = []
+            solutions_figure.append((figure[-1], figure[0]))
+
             for i in range(len(figure) - 1):
                 solution_pair = (figure[i], figure[i+1])
-                solutions.append(solution_pair)
+                solutions_figure.append(solution_pair)
 
-            solutions.append((figure[-1], figure[0]))
-
+            solutions.append(solutions_figure)
+            
         return solutions

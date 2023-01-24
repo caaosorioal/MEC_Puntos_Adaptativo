@@ -29,7 +29,7 @@ $("#canvasLines").click(function(e){
         
         // If the click is on a point of a figure, draw a line from the previous point to the new point
         if (id_clicks % 2 == 0){
-            if ((check_if_point_belongs_to_list(initial_click, nearest_point, winning_lines)) && (!check_if_point_belongs_to_list(nearest_point, initial_click, current_winning_lines))){
+            if ((check_if_line_belongs_to_solution(initial_click, nearest_point, winning_lines)) && (!check_if_line_belongs_to_current_correct_lines(nearest_point, initial_click, current_winning_lines))){
                 n_success += 1;
                 draw_joining_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'green');
                 clear_temp_line(); 
