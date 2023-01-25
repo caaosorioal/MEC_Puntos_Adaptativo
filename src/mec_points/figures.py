@@ -166,7 +166,6 @@ class Triangle(Canvas):
         if points is None:
             return self.create_figure()
         else:
-            print(points)
             # Delete one corner
             points.pop(2)
 

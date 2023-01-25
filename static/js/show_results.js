@@ -5,7 +5,15 @@ var names_events = {
 };
 
 function show_data(id_text, data) {
-    document.getElementById(id_text).innerHTML = `${names_events[id_text][0]}: ${data}`;
+    var n_figures = winning_lines.length;
+    var str_message = `${names_events[id_text][0]}: ${data}`;
+    
+    if (id_text == "correct_figures"){
+        str_message = `You've found: ${data} figures (Out of a total of ${n_figures})`;
+    } 
+
+    document.getElementById(id_text).innerHTML = str_message;
+    
 };
 
 function highlight_result(id_text) {

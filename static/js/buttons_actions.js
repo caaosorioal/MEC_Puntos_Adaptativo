@@ -18,10 +18,9 @@ $("#get_hint").on("click", evt => {
     evt.preventDefault();
 
     // Get a random line
-    var random_line = winning_lines[randomInteger(0, winning_lines.length)];
-    
+    var random_line = winning_lines[randomInteger(0, winning_lines.length - 1)];
     // Get the points of the line
-    var hint_points = random_line[randomInteger(0, random_line.length)];
+    var hint_points = random_line[randomInteger(0, random_line.length - 1)];
 
     // Draw the line
     if (!check_if_line_belongs_to_current_correct_lines(hint_points[0], hint_points[1], current_winning_lines)){

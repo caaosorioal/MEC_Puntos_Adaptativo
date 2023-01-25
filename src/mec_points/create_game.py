@@ -11,13 +11,14 @@ def create_random_setup(x_dim_canvas : float,
     """
     # Create the figures
     figures = []
-    figure_side = random.uniform(0, min(x_dim_canvas, y_dim_canvas))
+    min_dim = min(x_dim_canvas, y_dim_canvas)
+    figure_side = random.uniform(0.2 * min_dim, 0.8 * min_dim)
     rotation = False
 
     for _ in range(number_figures):
         figure = random.choice(['square', 'triangle'])
         if different_lens: 
-            figure_side = random.uniform(0, min(x_dim_canvas, y_dim_canvas))
+            figure_side = random.uniform(0.2 * min_dim, 0.8 * min_dim)
 
         if different_rotation: 
             rotation = random.choice([True, False])

@@ -1,3 +1,11 @@
+// Render the number of squares and triangles
+$(window).load(
+    function(){
+        document.getElementById("number_squares").innerHTML = `There are ${number_of_squares} squares`;
+        document.getElementById("number_triangles").innerHTML = `There are ${number_of_triangles} triangles`;
+    }
+);
+
 // Start to measure the time
 var start_time = new Date().getTime();
 

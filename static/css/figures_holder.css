@@ -1,0 +1,11 @@
+.figuresHolder {
+    border: 3px solid #fff;
+    padding: 20px;
+    display: flex;
+}
+
+.figuresHolder_child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+}  

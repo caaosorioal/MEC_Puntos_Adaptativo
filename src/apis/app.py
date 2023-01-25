@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 def render_game(request: Request):
     canvas_x_size, canvas_y_size = canvas_size()
 
-    n_figures = 1
+    n_figures = 7
     different_lens = True
     different_rotation = True
 
@@ -36,6 +36,7 @@ def render_game(request: Request):
         "generated_figures" : figures,
         "generated_solutions" : solutions,
         "difficulty": difficulty,
+        "n_figures" : n_figures
     }
 
     return templates.TemplateResponse("index.html", response_data)
@@ -47,5 +48,6 @@ if __name__ == "__main__":
                 "src.apis.app:app", 
                 host="0.0.0.0", 
                 port=data['port'], 
-                reload=True
+                reload=True,
+                reload_dirs=['src', 'static/js', 'static/css', 'templates']
     )
