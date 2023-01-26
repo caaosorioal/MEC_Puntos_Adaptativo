@@ -18,3 +18,12 @@ function draw_points(figure){
 for (var i = 0; i < figures.length; i++) {
     draw_points(figures[i]);
 };
+
+// Draw the solution points.
+function draw_solution_point(x, y, color, radius = 5){
+    var ctx = document.getElementById("canvasJoiningLines").getContext("2d");
+    ctx.fillStyle = color; 
+    ctx.beginPath(); 
+    ctx.arc(x, y, radius, 0, Math.PI * 2, true); 
+    ctx.fill(); 
+}

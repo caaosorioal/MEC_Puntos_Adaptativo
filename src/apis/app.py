@@ -5,21 +5,18 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+from fastapi.encoders import jsonable_encoder
 from src.apis.get_config import *
+from typing import Dict
+from pydantic import BaseModel
 
 # Create the app
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-@app.get("/game", response_class=HTMLResponse)
-def render_game(request: Request):
+def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
     canvas_x_size, canvas_y_size = canvas_size()
-
-    n_figures = 7
-    different_lens = True
-    different_rotation = True
-
     game_setup, difficulty = create_random_setup(
                                                 canvas_x_size, 
                                                 canvas_y_size, 
@@ -28,9 +25,8 @@ def render_game(request: Request):
                                                 different_rotation=different_rotation
     )
     _, figures, solutions = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
-    
-    response_data = {
-        "request": request, 
+
+    return {
         "x_size" : canvas_x_size,
         "y_size" : canvas_y_size, 
         "generated_figures" : figures,
@@ -39,7 +35,39 @@ def render_game(request: Request):
         "n_figures" : n_figures
     }
 
+## Post endpoints ##
+# Create a new endpoint to send the game data to the frontend
+class GameData(BaseModel):
+    n_squares : int
+    n_triangles : int
+    clicks : int
+    n_fails : int
+    time : float
+    rotation_mean_angles : float
+    mean_lens_figures : float
+    std_lens_figures : float
+
+@app.post("/game-data")
+async def data_from_game(data : GameData):
+    print(data)
+    return data
+
+# Create a new endpoint to compute the next game difficulty
+@app.post("/compute-game-dificulty/")
+def compute_dificulty(data: GameData):
+    difficulty = int((data.n_squares + data.n_triangles + data.clicks + data.n_fails)/3)
+    return difficulty
+
+
+## Get endpoints ##
+# Create a new endpoint to render the game in the frontend
+@app.get("/game/{n_figures}", response_class=HTMLResponse)
+async def render_game(request: Request, n_figures : int):
+    response_data = send_data_random_game(n_figures = n_figures)
+    response_data['request'] = request
     return templates.TemplateResponse("index.html", response_data)
+
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,4 +1,4 @@
-    $("#new_game").on("click", evt => {
+$("#new_game").on("click", evt => {
     // Prevent the default action of the button
     evt.preventDefault();
 

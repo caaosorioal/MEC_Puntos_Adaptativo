@@ -79,15 +79,25 @@
                 <label class="toggle">
                     <input class="toggle-checkbox" type="checkbox">
                     <div class="toggle-switch" id="show_number_figures"></div>
-                    <span class="toggle-label"> Show the number of figures of each type</span>
+                    <span class="toggle-label" id="show_number_figures_"> Show the number of figures of each type</span>
                 </label>
 
                 <div class="figuresHolder" id="n_figures_holder" style="display: none" >
+
                     <div class="figuresHolder_child" id="number_squares_holder"> 
-                        <p class="text_p" id="number_squares"> Holi </p>
+                        <div class='square-box'>
+                            <div class='square-content'>
+                                <h3 id="number_squares">test</h3>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="figuresHolder_child" id="number_triangles_holder"> 
-                        <p class="text_p" id="number_triangles"> Holi </p>
+                        <div class='triangle-box'>
+                            <div class='triangle-content'>
+                                <h3 id="number_triangles"> test </h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -119,6 +129,7 @@
         <script src="../static/js/check_line.js?2"></script>
         <script src="../static/js/check_if_some_figure_is_finished.js?2"></script>
         <script src="../static/js/collapse_number_of_figures.js?2"></script>
+        <script src="../static/js/communicate_server.js"></script>
     </body>
 </html>
 

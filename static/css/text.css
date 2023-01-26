@@ -66,8 +66,51 @@ h1 {
     -khtml-border-radius: 10px;
 }
 
+/* This is the style to the square */
 
+.square-box{
+  position: relative;
+  width: 35%;
+  overflow: hidden;
+  background: #73A580;
+  margin-left: 50%;
+}
+.square-box:before{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.square-content{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: white;
+  text-align: center;
+}
 
+/* This is the style to the triangle */
 
-
-
+.triangle-box{
+  position: relative;
+  width: 35%;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #73A580 50%, #73A580 100%);
+  margin-right: 50%;
+}
+.triangle-box:before{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.triangle-content{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: black;
+  text-align: center;
+  margin-right: 50%;
+}

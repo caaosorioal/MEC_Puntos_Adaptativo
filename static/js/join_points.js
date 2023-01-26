@@ -1,8 +1,8 @@
 // Render the number of squares and triangles
 $(window).load(
     function(){
-        document.getElementById("number_squares").innerHTML = `There are ${number_of_squares} squares`;
-        document.getElementById("number_triangles").innerHTML = `There are ${number_of_triangles} triangles`;
+        document.getElementById("number_squares").innerHTML = `${number_of_squares} Squares`;
+        document.getElementById("number_triangles").innerHTML = `${number_of_triangles} Triangles`;
     }
 );
 
@@ -43,6 +43,9 @@ $("#canvasLines").click(function(e){
             if ((check_if_line_belongs_to_solution(initial_click, nearest_point, winning_lines)) && (!check_if_line_belongs_to_current_correct_lines(nearest_point, initial_click, current_winning_lines))){
                 n_success += 1;
                 draw_joining_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'green');
+                draw_solution_point(initial_click.x, initial_click.y, 'green');
+                draw_solution_point(nearest_point.x, nearest_point.y, 'green');
+
                 clear_temp_line(); 
                 current_winning_lines.push([initial_click, nearest_point]);
                 
@@ -56,9 +59,29 @@ $("#canvasLines").click(function(e){
 
                 // Check if the game is finished
                 if (finished_figures.length == winning_lines.length){
-                    alert("Congratulations! You have finished the game in " + n_clicks + " clicks and you spent " + (new Date().getTime() - start_time)/1000 + " seconds.")
+                    alert("Congratulations! You have finished the game in " + n_clicks + " clicks and you spent " + (new Date().getTime() - start_time)/1000 + " seconds.");
+                    var server_data = {
+                        'n_squares' : number_of_squares,
+                        'n_triangles' : number_of_triangles,
+                        'rotation_mean_angles' : 0,
+                        'mean_lens_figures' : 0,
+                        'std_lens_figures' : 0,
+                        'clicks' : parseInt(n_clicks),
+                        'n_fails' : parseInt(n_fails),
+                        'time' : parseFloat((new Date().getTime() - start_time)/1000),
+                    };
+
+                    // Sent the data to the server
+                    connection_to_server(server_data, "POST", "http://localhost:8000/game-data/");
+
+                    // Get the game difficulty and redirect to the next game
+                    var difficulty_next_level = connection_to_server(server_data, "POST", "http://localhost:8000/compute-game-dificulty/");
+
+                    // Get the next level
+                    if (confirm("Do you want to play the next level?")){
+                        window.location.replace("http://localhost:8000/game/" + difficulty_next_level);
+                    };
                 };
-                
             } else {
                 draw_temp_line(initial_click.x, initial_click.y, nearest_point.x, nearest_point.y, 'red');
                 n_fails += 1;
