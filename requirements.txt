@@ -1,8 +1,8 @@
 fastapi==0.89.1
+attrdict3
 matplotlib==3.1.0
 numpy==1.16.4
 pydantic==1.9.1
 PyYAML==6.0
 uvicorn==0.20.0
 wxPython==4.2.0
-attrdict3
