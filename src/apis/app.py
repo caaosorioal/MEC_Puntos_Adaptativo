@@ -1,45 +1,17 @@
 # Create a new api using FastAPI to send the game data (points) to the frontend.
-from src.mec_points.create_setup import create_random_setup
-from src.mec_points.game import Game
+from src.mec_points.create_setup import *
 from src.apis.get_config import *
-import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.encoders import jsonable_encoder
-from typing import Dict
 from pydantic import BaseModel
 
 # Create the app
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
-    canvas_x_size, canvas_y_size = canvas_size()
-
-    game_setup, difficulty = create_random_setup(
-                                                canvas_x_size, 
-                                                canvas_y_size, 
-                                                number_figures=n_figures, 
-                                                different_lens=different_lens,
-                                                different_rotation=different_rotation
-    )
-    _, figures, solutions, lens, rotations = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
-
-    print(lens, rotations)
-    return {
-        "x_size" : canvas_x_size,
-        "y_size" : canvas_y_size, 
-        "generated_figures" : figures,
-        "generated_solutions" : solutions,
-        "difficulty": difficulty,
-        "n_figures" : n_figures,
-        "mean_lens_figures" : np.mean(lens),
-        "rotation_mean_angles" : np.mean(rotations),
-        "std_lens_figures" : np.std(lens),
-    }
 
 ## Post endpoints ##
 # Create a new endpoint to send the game data to the frontend

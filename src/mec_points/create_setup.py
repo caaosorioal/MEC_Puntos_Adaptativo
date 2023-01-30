@@ -1,7 +1,36 @@
 import random 
 from typing import List, Tuple
+from src.apis.get_config import *
+from src.mec_points.game import Game
+from typing import Dict
+import numpy as np
 
-# This function creates a random setup for the game
+# This function creates the random setup for the game
+def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
+    canvas_x_size, canvas_y_size = canvas_size()
+
+    game_setup, difficulty = create_random_setup(
+                                                canvas_x_size, 
+                                                canvas_y_size, 
+                                                number_figures=n_figures, 
+                                                different_lens=different_lens,
+                                                different_rotation=different_rotation
+    )
+    _, figures, solutions, lens, rotations = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
+
+    return {
+        "x_size" : canvas_x_size,
+        "y_size" : canvas_y_size, 
+        "generated_figures" : figures,
+        "generated_solutions" : solutions,
+        "difficulty": difficulty,
+        "n_figures" : n_figures,
+        "mean_lens_figures" : np.mean(lens),
+        "rotation_mean_angles" : np.mean(rotations),
+        "std_lens_figures" : np.std(lens),
+    }
+
+# This function allow to create a random setup for the game
 def create_random_setup(x_dim_canvas : float, 
                         y_dim_canvas : float, 
                         number_figures : int = 3, 
