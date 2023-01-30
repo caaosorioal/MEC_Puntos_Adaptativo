@@ -1,5 +1,6 @@
 fastapi==0.89.1
-ctypes
+attrdict3
+attrdict
 matplotlib==3.1.0
 numpy==1.16.4
 pydantic==1.9.1

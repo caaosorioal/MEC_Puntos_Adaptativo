@@ -13,8 +13,11 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-## Post endpoints ##
-# Create a new endpoint to send the game data to the frontend
+## Classes models
+class CanvasSize(BaseModel):
+    x_size : float
+    y_size : float
+
 class GameData(BaseModel):
     n_squares : int
     n_triangles : int
@@ -25,9 +28,11 @@ class GameData(BaseModel):
     mean_lens_figures : float
     std_lens_figures : float
 
+
+## Post endpoints ##
+# Create a new endpoint to send the game data to the frontend
 @app.post("/game-data")
 async def data_from_game(data : GameData):
-    print(data)
     return data
 
 # Create a new endpoint to compute the next game difficulty
@@ -36,9 +41,21 @@ def compute_dificulty(data: GameData):
     difficulty = int((data.n_squares + data.n_triangles + data.clicks + data.n_fails)/3)
     return difficulty
 
+@app.post("/get-size-canvas/")
+def get_size_canvas(canvas_size : CanvasSize):
+    import yaml
+    with open("temp_config_game.yml") as f:
+        list_doc = yaml.safe_load(f)
+
+    for sizes in list_doc['canvas_size']:
+        sizes['x_size'] = canvas_size.x_size * 0.45
+        sizes['y_size'] = canvas_size.y_size * 0.9
+
+    with open("temp_config_game.yml", "w") as f:
+        yaml.dump(list_doc, f)
 
 ## Get endpoints ##
-# Create a new endpoint to render the game in the frontend
+# Create a new endpoint to render the game i the frontend
 @app.get("/game/{n_figures}", response_class=HTMLResponse)
 async def render_game(request: Request, n_figures : int):
     response_data = send_data_random_game(n_figures = n_figures)
