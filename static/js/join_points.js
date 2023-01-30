@@ -63,9 +63,9 @@ $("#canvasLines").click(function(e){
                     var server_data = {
                         'n_squares' : number_of_squares,
                         'n_triangles' : number_of_triangles,
-                        'rotation_mean_angles' : 0,
-                        'mean_lens_figures' : 0,
-                        'std_lens_figures' : 0,
+                        'rotation_mean_angles' : rotation_mean_angles_,
+                        'mean_lens_figures' : mean_lens_figures_,
+                        'std_lens_figures' : std_lens_figures_,
                         'clicks' : parseInt(n_clicks),
                         'n_fails' : parseInt(n_fails),
                         'time' : parseFloat((new Date().getTime() - start_time)/1000),

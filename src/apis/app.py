@@ -1,4 +1,5 @@
 # Create a new api using FastAPI to send the game data (points) to the frontend.
+import numpy as np
 from src.mec_points.create_game import create_random_setup
 from src.mec_points.game import Game
 from fastapi import FastAPI, Request
@@ -24,7 +25,7 @@ def send_data_random_game(n_figures : int = 3, different_lens : bool = True, dif
                                                 different_lens=different_lens,
                                                 different_rotation=different_rotation
     )
-    _, figures, solutions = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
+    _, figures, solutions, lens, rotations = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
 
     return {
         "x_size" : canvas_x_size,
@@ -32,7 +33,10 @@ def send_data_random_game(n_figures : int = 3, different_lens : bool = True, dif
         "generated_figures" : figures,
         "generated_solutions" : solutions,
         "difficulty": difficulty,
-        "n_figures" : n_figures
+        "n_figures" : n_figures,
+        "mean_lens_figures" : np.mean(lens),
+        "rotation_mean_angles" : np.mean(rotations),
+        "std_lens_figures" : np.std(lens),
     }
 
 ## Post endpoints ##
@@ -66,7 +70,6 @@ async def render_game(request: Request, n_figures : int):
     response_data = send_data_random_game(n_figures = n_figures)
     response_data['request'] = request
     return templates.TemplateResponse("index.html", response_data)
-
 
 
 if __name__ == "__main__":

@@ -10,6 +10,10 @@
             <link rel="stylesheet" href="../static/css/figures_holder.css">
             <link rel="stylesheet" href="../static/css/button_number_figures.css">
             <script>
+                var mean_lens_figures_ = {{ mean_lens_figures|tojson }};
+                var rotation_mean_angles_ = {{ rotation_mean_angles|tojson }};
+                var std_lens_figures_ = {{ std_lens_figures|tojson }};
+
                 var figures_ = {{ generated_figures|tojson }};
                 var figures = figures_.map(
                     pair_points => {

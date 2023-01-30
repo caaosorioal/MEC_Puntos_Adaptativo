@@ -21,7 +21,7 @@ def create_random_setup(x_dim_canvas : float,
             figure_side = random.uniform(0.2 * min_dim, 0.8 * min_dim)
 
         if different_rotation: 
-            rotation = random.choice([True, False])
+            rotation = random.choice([True])
 
         figures.append((figure, figure_side, rotation))
 

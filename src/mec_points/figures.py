@@ -30,17 +30,6 @@ class Canvas:
                 return False        
         return True
 
-    def rotate_figure(self, points : List[Tuple]) -> List[Tuple]:
-        """ 
-        This function implements the rotation of the figure.
-        To do so, we use a rotation matrix: [[cosx, -sinx], [sinx, cosx]] for a random x between 0 and 2pi.
-        """
-        random_angle = np.random.uniform(0, 2 * np.pi)
-        rotation_matrix = np.array([[np.cos(random_angle), -np.sin(random_angle)], [np.sin(random_angle), np.cos(random_angle)]])
-        rotated_points = [tuple(np.matmul(rotation_matrix, np.array(point))) for point in points]
-
-        return rotated_points
-
     def plot_canvas(self):
         """ 
         This function plots the canvas.
@@ -91,10 +80,23 @@ class Square(Canvas):
         else:
             self.len_side = len_side
             self.rotate = rotate
+            self.rotation_angle = None
 
         # Select the starting random point
         x_starting, y_starting = np.random.uniform(0, canvas_x_dim - self.len_side), np.random.uniform(0, canvas_y_dim - self.len_side)
         self.starting_point = (x_starting, y_starting)
+
+    def _rotate_figure(self, points : List[Tuple]) -> List[Tuple]:
+        """ 
+        This function implements the rotation of the figure.
+        To do so, we use a rotation matrix: [[cosx, -sinx], [sinx, cosx]] for a random x between 0 and 2pi.
+        """
+        random_angle = np.random.uniform(0, np.pi / 2)
+        self.rotation_angle = random_angle
+
+        rotation_matrix = np.array([[np.cos(random_angle), -np.sin(random_angle)], [np.sin(random_angle), np.cos(random_angle)]])
+        rotated_points = [tuple(np.matmul(rotation_matrix, np.array(point))) for point in points]
+        return rotated_points
 
     def create_figure(self) -> List:
         """
@@ -129,7 +131,7 @@ class Square(Canvas):
 
         # Check if the square is inside the canvas
         if self.rotate:
-            points = self.rotate_figure(points)
+            points = self._rotate_figure(points)
 
         if self.is_figure_inside_canvas(points):
             return points
@@ -150,6 +152,7 @@ class Triangle(Canvas):
         else:
             self.len_side = len_side
             self.rotate = rotate
+            self.rotation_angle = None
 
         # Select the starting random point
         x_starting, y_starting = np.random.uniform(0, canvas_x_dim - self.len_side), np.random.uniform(0, canvas_y_dim - self.len_side)
@@ -162,7 +165,8 @@ class Triangle(Canvas):
         # Create the square
         square = Square(self.canvas_x_dim, self.canvas_y_dim, self.len_side, self.rotate)
         points = square.create_figure()
-
+        self.rotation_angle = square.rotation_angle
+        
         if points is None:
             return self.create_figure()
         else:

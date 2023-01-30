@@ -15,16 +15,25 @@ class Game:
 
         # Create the figures
         figures = []
+        lens = [figure[1] for figure in self.figures]
+        rotations = []
+
         for figure in self.figures:
             if figure[0] == 'square':
-                figures.append(Square(self.x_dim_canvas, self.y_dim_canvas, figure[1], figure[2]).create_figure())
+                square_ = Square(self.x_dim_canvas, self.y_dim_canvas, figure[1], figure[2])
+                figures.append(square_.create_figure())
+                rotations.append(square_.rotation_angle)
+
             elif figure[0] == 'triangle':
-                figures.append(Triangle(self.x_dim_canvas, self.y_dim_canvas, figure[1], figure[2]).create_figure())
+                triangle_ = Triangle(self.x_dim_canvas, self.y_dim_canvas, figure[1], figure[2])
+                figures.append(triangle_.create_figure())
+                rotations.append(triangle_.rotation_angle)
+                
             else:
                 raise ValueError('The figure is not valid')
 
         solutions = self.create_solutions(figures)
-        return (canvas, figures, solutions)
+        return (canvas, figures, solutions, lens, rotations)
 
     def create_solutions(self, figures : List[List[Tuple]]) -> List[List[Tuple]]:
         """
