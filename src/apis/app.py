@@ -10,14 +10,24 @@ from fastapi.encoders import jsonable_encoder
 from src.apis.get_config import *
 from typing import Dict
 from pydantic import BaseModel
+import wx
 
 # Create the app
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+def convert_string_perc_to_float(string : str) -> float:
+    return float(string.replace('%', '')) / 100
+
 def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
-    canvas_x_size, canvas_y_size = canvas_size()
+    canvas_x_perc_size, canvas_y_perc_size = canvas_size()
+    app_cx = wx.App(False)
+    display_size_x, display_size_y = wx.GetDisplaySize()
+
+    canvas_x_size = int(convert_string_perc_to_float(canvas_x_perc_size) * display_size_x)
+    canvas_y_size = int(convert_string_perc_to_float(canvas_y_perc_size) * display_size_y)
+
     game_setup, difficulty = create_random_setup(
                                                 canvas_x_size, 
                                                 canvas_y_size, 
