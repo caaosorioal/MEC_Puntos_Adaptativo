@@ -80,7 +80,7 @@ class Square(Canvas):
         else:
             self.len_side = len_side
             self.rotate = rotate
-            self.rotation_angle = None
+            self.rotation_angle = 0
 
         # Select the starting random point
         x_starting, y_starting = np.random.uniform(0, canvas_x_dim - self.len_side), np.random.uniform(0, canvas_y_dim - self.len_side)
@@ -152,7 +152,7 @@ class Triangle(Canvas):
         else:
             self.len_side = len_side
             self.rotate = rotate
-            self.rotation_angle = None
+            self.rotation_angle = 0
 
         # Select the starting random point
         x_starting, y_starting = np.random.uniform(0, canvas_x_dim - self.len_side), np.random.uniform(0, canvas_y_dim - self.len_side)

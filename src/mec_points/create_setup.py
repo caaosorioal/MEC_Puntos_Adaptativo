@@ -1,6 +1,7 @@
 import random 
 from typing import List, Tuple
 
+# This function creates a random setup for the game
 def create_random_setup(x_dim_canvas : float, 
                         y_dim_canvas : float, 
                         number_figures : int = 3, 
@@ -21,7 +22,7 @@ def create_random_setup(x_dim_canvas : float,
             figure_side = random.uniform(0.2 * min_dim, 0.8 * min_dim)
 
         if different_rotation: 
-            rotation = random.choice([True])
+            rotation = random.choice([True, False])
 
         figures.append((figure, figure_side, rotation))
 

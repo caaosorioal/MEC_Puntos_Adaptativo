@@ -1,13 +1,13 @@
 # Create a new api using FastAPI to send the game data (points) to the frontend.
-import numpy as np
-from src.mec_points.create_game import create_random_setup
+from src.mec_points.create_setup import create_random_setup
 from src.mec_points.game import Game
+from src.apis.get_config import *
+import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.encoders import jsonable_encoder
-from src.apis.get_config import *
 from typing import Dict
 from pydantic import BaseModel
 
@@ -28,6 +28,7 @@ def send_data_random_game(n_figures : int = 3, different_lens : bool = True, dif
     )
     _, figures, solutions, lens, rotations = Game(canvas_x_size, canvas_y_size, game_setup).create_game()
 
+    print(lens, rotations)
     return {
         "x_size" : canvas_x_size,
         "y_size" : canvas_y_size, 
