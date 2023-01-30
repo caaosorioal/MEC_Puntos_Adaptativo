@@ -1,0 +1,1 @@
+web: uvicorn app_mec_points --workers 4
