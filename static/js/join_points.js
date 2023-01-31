@@ -2,7 +2,7 @@
 var server_port = window.location.port || 8000;
 var server_host = window.location.host || '0.0.0.0';
 
-console.log(server_port, server_host);
+console.log(window.location.port);
 
 // Render the number of squares and triangles
 $(window).load(
