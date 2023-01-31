@@ -1,3 +1,10 @@
+// Get the port
+var server_port = process.env.YOUR_PORT || process.env.PORT || 8000;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+server.listen(server_port, server_host, function() {
+    console.log('Listening on port %d', server_port);
+});
+
 // Render the number of squares and triangles
 $(window).load(
     function(){
@@ -72,14 +79,14 @@ $("#canvasLines").click(function(e){
                     };
 
                     // Sent the data to the server
-                    connection_to_server(server_data, "POST", "0.0.0.0:8000/game-data/");
+                    connection_to_server(server_data, "POST", `0.0.0.0:${server_port}/game-data/`);
 
                     // Get the game difficulty and redirect to the next game
-                    var difficulty_next_level = connection_to_server(server_data, "POST", "0.0.0.0:8000/compute-game-dificulty/");
+                    var difficulty_next_level = connection_to_server(server_data, "POST", `0.0.0.0:${server_port}/compute-game-dificulty/`);
 
                     // Get the next level
                     if (confirm("Do you want to play the next level?")){
-                        window.location.replace("0.0.0.0:8000/game/" + difficulty_next_level);
+                        window.location.replace(`0.0.0.0:${server_port}/game/` + difficulty_next_level);
                     };
                 };
             } else {
