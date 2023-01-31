@@ -6,9 +6,8 @@ from typing import Dict
 import numpy as np
 
 # This function creates the random setup for the game
-def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
-    canvas_x_size, canvas_y_size = canvas_size()
-
+async def send_data_random_game(n_figures : int = 3, different_lens : bool = True, different_rotation : bool = True) -> Dict:
+    canvas_x_size, canvas_y_size = await canvas_size()
     game_setup, difficulty = create_random_setup(
                                                 canvas_x_size, 
                                                 canvas_y_size, 

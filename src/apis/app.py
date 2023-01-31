@@ -1,4 +1,5 @@
 # Create a new api using FastAPI to send the game data (points) to the frontend.
+import yaml
 from src.mec_points.create_setup import *
 from src.apis.get_config import *
 from fastapi import FastAPI, Request
@@ -42,14 +43,13 @@ def compute_dificulty(data: GameData):
     return difficulty
 
 @app.post("/get-size-canvas/")
-def get_size_canvas(canvas_size : CanvasSize):
-    import yaml
+async def get_size_canvas(canvas_size : CanvasSize):
     with open("temp_config_game.yml") as f:
         list_doc = yaml.safe_load(f)
 
     for sizes in list_doc['canvas_size']:
-        sizes['x_size'] = canvas_size.x_size * 0.45
-        sizes['y_size'] = canvas_size.y_size * 0.9
+        sizes['x_size'] = int(canvas_size.x_size * 0.45)
+        sizes['y_size'] = int(canvas_size.y_size * 0.9)
 
     with open("temp_config_game.yml", "w") as f:
         yaml.dump(list_doc, f)
@@ -58,6 +58,12 @@ def get_size_canvas(canvas_size : CanvasSize):
 # Create a new endpoint to render the game i the frontend
 @app.get("/game/{n_figures}", response_class=HTMLResponse)
 async def render_game(request: Request, n_figures : int):
-    response_data = send_data_random_game(n_figures = n_figures)
+    response_data = await send_data_random_game(n_figures = n_figures)
     response_data['request'] = request
     return templates.TemplateResponse("index.html", response_data)
+
+# Create a new endpoint to render the game i the frontend
+@app.get("/start_page/", response_class=HTMLResponse)
+async def render_start_page(request: Request):
+    response_data = await send_data_random_game(n_figures = 1)
+    return templates.TemplateResponse("start_page.html", {"request": request})

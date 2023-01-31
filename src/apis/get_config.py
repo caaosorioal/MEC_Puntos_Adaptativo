@@ -6,7 +6,7 @@ def get_config_data():
         data = yaml.safe_load(f)
     return data
 
-def canvas_size():
+async def canvas_size():
     canvas_size = get_config_data()['canvas_size']
     canvas_x_size = canvas_size[0]['x_size']
     canvas_y_size = canvas_size[0]['y_size']
