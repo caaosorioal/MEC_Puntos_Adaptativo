@@ -1,1 +1,1 @@
-# MEC - Point representation
+# MEC - Points representation
