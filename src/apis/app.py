@@ -56,6 +56,10 @@ async def get_size_canvas(canvas_size : CanvasSize):
 
 ## Get endpoints ##
 # Create a new endpoint to render the game i the frontend
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
 @app.get("/game/{n_figures}", response_class=HTMLResponse)
 async def render_game(request: Request, n_figures : int):
     response_data = await send_data_random_game(n_figures = n_figures)

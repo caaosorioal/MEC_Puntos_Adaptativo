@@ -1,1 +1,1 @@
-web: uvicorn app_mec_points --workers 4
+web: uvicorn src.apis.app:app --host=0.0.0.0 --port=${PORT:-5000}
