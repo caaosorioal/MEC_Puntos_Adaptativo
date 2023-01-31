@@ -66,5 +66,4 @@ async def render_game(request: Request, n_figures : int):
 # Create a new endpoint to render the game i the frontend
 @app.get("/", response_class=HTMLResponse)
 async def render_start_page(request: Request):
-    response_data = await send_data_random_game(n_figures = 1)
     return templates.TemplateResponse("start_page.html", {"request": request})
