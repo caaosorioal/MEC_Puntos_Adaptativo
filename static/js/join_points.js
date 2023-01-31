@@ -78,14 +78,14 @@ $("#canvasLines").click(function(e){
                     };
 
                     // Sent the data to the server
-                    connection_to_server(server_data, "POST", `0.0.0.0:${server_port}/game-data/`);
+                    connection_to_server(server_data, "POST", `/game-data/`);
 
                     // Get the game difficulty and redirect to the next game
-                    var difficulty_next_level = connection_to_server(server_data, "POST", `0.0.0.0:${server_port}/compute-game-dificulty/`);
+                    var difficulty_next_level = connection_to_server(server_data, "POST", `/compute-game-dificulty/`);
 
                     // Get the next level
                     if (confirm("Do you want to play the next level?")){
-                        window.location.replace(`0.0.0.0:${server_port}/game/` + difficulty_next_level);
+                        window.location.replace(`/game/` + difficulty_next_level);
                     };
                 };
             } else {
