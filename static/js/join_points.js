@@ -1,6 +1,7 @@
 // Get the port
-var server_port = process.env.PORT || 8000;
-var server_host = process.env.YOUR_HOST || '0.0.0.0';
+var server_port = window.location.port || 8000;
+var server_host = window.location.host || '0.0.0.0';
+
 server.listen(server_port, server_host, function() {
     console.log('Listening on port %d', server_port);
 });
