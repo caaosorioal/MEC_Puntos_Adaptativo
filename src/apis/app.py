@@ -56,9 +56,6 @@ async def get_size_canvas(canvas_size : CanvasSize):
 
 ## Get endpoints ##
 # Create a new endpoint to render the game i the frontend
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
 @app.get("/game/{n_figures}", response_class=HTMLResponse)
 async def render_game(request: Request, n_figures : int):
@@ -67,7 +64,7 @@ async def render_game(request: Request, n_figures : int):
     return templates.TemplateResponse("index.html", response_data)
 
 # Create a new endpoint to render the game i the frontend
-@app.get("/start_page/", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def render_start_page(request: Request):
     response_data = await send_data_random_game(n_figures = 1)
     return templates.TemplateResponse("start_page.html", {"request": request})
