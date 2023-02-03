@@ -59,7 +59,7 @@ $("#canvasLines").click(function(e){
 
                 // Check if the game is finished
                 if (finished_figures.length == winning_lines.length){
-                    alert("Congratulations! You have finished the game in " + n_clicks + " clicks and you spent " + (new Date().getTime() - start_time)/1000 + " seconds.");
+                    alert("Congratulations! You have finished the game!");
                     var server_data = {
                         'n_squares' : number_of_squares,
                         'n_triangles' : number_of_triangles,

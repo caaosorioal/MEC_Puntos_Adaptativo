@@ -2,7 +2,7 @@ import yaml
 
 # Get the data of config data
 def get_config_data():
-    with open("temp_config_game.yml", "r") as f:
+    with open("config_game.yml", "r") as f:
         data = yaml.safe_load(f)
     return data
 

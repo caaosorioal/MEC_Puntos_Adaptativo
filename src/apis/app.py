@@ -7,33 +7,19 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel
+from src.apis.pydantic_models import GameData, CanvasSize
+from src.apis.db_config import insert_data
 
-# Create the app
+## Create the app
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-## Classes models
-class CanvasSize(BaseModel):
-    x_size : float
-    y_size : float
-
-class GameData(BaseModel):
-    n_squares : int
-    n_triangles : int
-    clicks : int
-    n_fails : int
-    time : float
-    rotation_mean_angles : float
-    mean_lens_figures : float
-    std_lens_figures : float
-
 
 ## Post endpoints ##
 # Create a new endpoint to send the game data to the frontend
 @app.post("/game-data")
 async def data_from_game(data : GameData):
+    insert_data(data)
     return data
 
 # Create a new endpoint to compute the next game difficulty
@@ -44,19 +30,18 @@ def compute_dificulty(data: GameData):
 
 @app.post("/get-size-canvas/")
 async def get_size_canvas(canvas_size : CanvasSize):
-    with open("temp_config_game.yml") as f:
+    with open("config_game.yml") as f:
         list_doc = yaml.safe_load(f)
 
     for sizes in list_doc['canvas_size']:
         sizes['x_size'] = int(canvas_size.x_size * 0.45)
         sizes['y_size'] = int(canvas_size.y_size * 0.9)
 
-    with open("temp_config_game.yml", "w") as f:
+    with open("config_game.yml", "w") as f:
         yaml.dump(list_doc, f)
 
 ## Get endpoints ##
 # Create a new endpoint to render the game i the frontend
-
 @app.get("/game/{n_figures}", response_class=HTMLResponse)
 async def render_game(request: Request, n_figures : int):
     response_data = await send_data_random_game(n_figures = n_figures)

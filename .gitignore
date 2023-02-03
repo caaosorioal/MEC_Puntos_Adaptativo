@@ -1,1 +1,3 @@
-.mec_points_main.py
+mec_points_main.py
+connect_db_temp.py
+.env
