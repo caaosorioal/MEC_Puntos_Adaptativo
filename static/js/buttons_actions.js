@@ -14,6 +14,9 @@ function randomInteger(min, max) {
   }
 
 $("#get_hint").on("click", evt => {
+    // Sum +1 to the number of hints
+    n_hints += 1;
+
     // Prevent the default action of the button
     evt.preventDefault();
 

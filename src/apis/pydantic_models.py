@@ -13,3 +13,4 @@ class GameData(BaseModel):
     rotation_mean_angles : float
     mean_lens_figures : float
     std_lens_figures : float
+    n_hints : int

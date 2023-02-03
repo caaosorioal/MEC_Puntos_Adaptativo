@@ -14,6 +14,7 @@ var id_clicks = 0;
 var initial_click = null;
 var error_line = false;
 var n_clicks = 0;
+var n_hints = 0;
 
 // Initialiaze the success/fails counter
 var n_success = 0;
@@ -69,6 +70,7 @@ $("#canvasLines").click(function(e){
                         'clicks' : parseInt(n_clicks),
                         'n_fails' : parseInt(n_fails),
                         'time' : parseFloat((new Date().getTime() - start_time)/1000),
+                        'n_hints' : parseInt(n_hints)
                     };
 
                     // Sent the data to the server

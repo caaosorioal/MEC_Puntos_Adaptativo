@@ -25,8 +25,17 @@ def insert_data(game_data : GameData):
     conn = connect_db()
     cur = conn.cursor()
     try:
-        data = (game_data.n_squares, game_data.n_triangles, game_data.clicks, game_data.n_fails, game_data.time, game_data.rotation_mean_angles, game_data.mean_lens_figures, game_data.std_lens_figures)
-        cur.execute("INSERT INTO gamedata (n_squares, n_triangles, clicks, n_fails, time, rotation_mean_angles, mean_lens_figures, std_lens_figures) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", data)
+        data = (game_data.n_squares, 
+                game_data.n_triangles, 
+                game_data.clicks, 
+                game_data.n_fails, 
+                game_data.time, 
+                game_data.rotation_mean_angles, 
+                game_data.mean_lens_figures, 
+                game_data.std_lens_figures,
+                game_data.n_hints
+        )
+        cur.execute("INSERT INTO gamedata (n_squares, n_triangles, clicks, n_fails, time, rotation_mean_angles, mean_lens_figures, std_lens_figures, n_hints) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", data)
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
