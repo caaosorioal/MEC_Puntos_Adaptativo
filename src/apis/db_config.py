@@ -8,12 +8,13 @@ load_dotenv()
 def connect_db():
     """Connect to the database"""
     try:
+        print(os.getenv("HOST"))
         conn = psycopg2.connect(
             host=os.getenv("HOST"),
             database=os.getenv("DATABASE"),
             user=os.getenv("USER_DATABASE"),
             password=os.getenv("PASSWORD"),
-            port=os.getenv("PORT")
+            port=os.getenv("PORT_DATABASE")
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
